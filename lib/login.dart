@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // TODO: implement initState
+
     updateFcmToken();
 
     super.initState();
@@ -48,7 +49,9 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(
               builder: (context) => HomePage(),
             ));
-        showSnackBar('Welcome!', context);
+        // showSnackBar('Welcome!', context);
+        FirebaseNotification()
+            .showNotification('Welcome Back', 'Login successful!');
       }
     } on FirebaseAuthException catch (e) {
       // Login failed, handle error
@@ -239,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   updateFcmToken() async {
     FirebaseNotification().setUpFirebase(onDidReceiveLocalNotification);
-
+    print('login initalization');
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     fcmtoken = await messaging.getToken();
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vivatech/colors.dart';
+import 'package:vivatech/firebaseLocalNotification.dart';
 import 'package:vivatech/home.dart';
 import 'package:vivatech/snackbar.dart';
 
@@ -43,7 +44,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             MaterialPageRoute(
               builder: (context) => HomePage(),
             ));
-        showSnackBar('Welcome back!', context);
+        // showSnackBar('Welcome back!', context);
+        FirebaseNotification()
+            .showNotification('Welcome', 'Registration successful!');
       }
       // Registration success, show welcome back push notification
     } on FirebaseAuthException catch (e) {

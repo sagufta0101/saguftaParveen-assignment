@@ -16,6 +16,30 @@ class FirebaseNotification {
   FirebaseMessaging? _firebaseMessaging;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  Future<void> showNotification(String title, String message) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channelId',
+      'channelName',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    );
+
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      title,
+      message,
+      platformChannelSpecifics,
+      payload: 'notification',
+    );
+  }
 
   void setUpFirebase(onDidReceiveLocalNotification) {
     tz.initializeTimeZones();
